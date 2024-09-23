@@ -1,0 +1,16 @@
+employee
+emp_deatils
+
+id=emp_id
+capture_datetime == curdate()
+
+if yes
+    already marked
+if no
+insert
+
+mode
+active
+new_mode
+marked
+already marked

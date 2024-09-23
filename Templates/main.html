@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns: xmlns:align-self="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centered Image Boxes with Borders and Icon</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .container {
+            height: 100%;
+            display: block;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .box {
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            /* Space between heading and image */
+            padding: 20px;
+            margin: 10px;
+            background-color: #fff;
+        }
+
+        .large-heading {
+            font-family: sans-serif;
+            font-size: 2.3rem;
+            margin-bottom: 40px;
+            background-color: #5D3FD3;
+            color: aliceblue;
+            border-top-right-radius: 15px;
+            /* Radius for the top-right corner */
+            border-bottom-right-radius: 15px;
+            /* Radius for the bottom-right corner */
+            display: flex;
+            align-items: center;
+            /* Vertically align items */
+            padding-left: 205px;
+            /* Space for the icon */
+            position: ;
+        }
+
+        .large-heading .icon {
+            position: absolute;
+            left: 155px;
+            /* Position icon */
+            font-size: 2rem;
+            /* Size of the icon */
+            color: aliceblue;
+            /* Color of the icon */
+            margin-right: 15px;
+            /* Space between icon and text */
+        }
+
+        /*CSS FOR THE ACTIVE BUTTON*/
+        .centered-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* margin-top: 20px;  Adjust as needed for positioning */
+            height: 100%
+        }
+
+        .rounded-button {
+            background-color: #5D3FD3; /* Button color */
+            color: white; /* Text color */
+            padding: 15px 60px;
+            border-radius: 30px; /* Rounded corners */
+            font-family: sans-serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            pointer-events: none; /* Make the button unclickable */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: Add shadow for depth */
+        }
+
+        /*CSS FOR THE MARKED BUTTON*/
+        .centered-button {
+            display: flex;
+            flex-direction: column; /* Stack Icon And Button vertically */
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            align-content: center;
+            align-items: center;
+            /* margin-top: 20px;  Adjust as needed for positioning */
+            height: 100%
+        }
+
+        .rounded-button {
+            background-color: #5D3FD3; /* Button color */
+            color: white; /* Text color */
+            padding: 15px 60px;
+            border-radius: 30px; /* Rounded corners */
+            font-family: sans-serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            pointer-events: none; /* Make the button unclickable */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: Add shadow for depth */
+        }
+
+        /*CSS FOR THE ALREADY MARKED BUTTON*/
+        .centered-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* margin-top: 20px;  Adjust as needed for positioning */
+            height: 100%
+        }
+
+        .rounded-button {
+            background-color: #557F50;  /* Button color */
+            color: white; /* Text color */
+            padding: 15px 30px;
+            border-radius: 30px; /* Rounded corners */
+            font-family: sans-serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            pointer-events: none; /* Make the button unclickable */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: Add shadow for depth */
+        }
+
+        .title {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .img-box {
+            width: 100%;
+            height: 100%;
+            margin-bottom: 0px;
+            border: 25px solid #5D3FD3;
+            /* Border around the image */
+            border-radius: 15px;
+            /* Adjust the radius as needed */
+
+        }
+
+        .row {
+            margin-left: -100px;
+            /* Remove default row margins */
+            margin-right: -100px;
+            /* Remove default row margins */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7 box">
+                <div class="large-heading">
+                    <i class="fas fa-hospital icon"></i> <!-- Font Awesome icon -->
+                    ATTENDANCE SYSTEM
+                </div>
+                <!-- <img src="./images/Banne 2.png" class="img-box img-fluid" alt="Image 1"> -->
+                <!-- Live video feed from the webcam -->
+                <img src="{{ url_for('video_feed') }}" class="img-box img-fluid video-box" alt="Video Feed">
+            </div>
+            <div class="col-sm-4 box">
+                    <div class="img-box">
+                        <!-- <div class="title">Subheading</div> -->
+                        <!--<img src="./images/3pcs-2.png.png" class="img-box img-fluid" alt="Image 2">-->
+                         <div class="centered-button">
+                             <!--<span class="rounded-button">ACTIVE</span>-->
+                             <span class="rounded-button">ALREADY MARKED</span>
+                             <!--<i class="fa-solid fa-circle-check fa-sm" style="color: #00ff00;font-size: 8rem"></i>
+                             <span class="rounded-button">MARKED</span>-->
+                         </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

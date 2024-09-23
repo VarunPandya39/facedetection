@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition System</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7 box">
+                <div class="large-heading">
+                    <i class="fas fa-hospital icon"></i>
+                    ATTENDANCE SYSTEM
+                </div>
+                <img src="{{ url_for('video_feed') }}" class="img-box img-fluid video-box" alt="Video Feed">
+            </div>
+            <div class="col-sm-4 box">
+                <div class="img-box">
+
+                    <script>
+                        function markAttendance(employeeName, imagePath, faceDetected) {
+                            $.ajax({
+                                url: '/mark_attendance',
+                                type: 'POST',
+                                contentType: 'application/json',
+                                data: JSON.stringify({
+                                    employee_name: employeeName,
+                                    realtime_image_path: imagePath,
+                                    face_detected: faceDetected
+                                }),
+                                success: function(response) {
+                                    if (response.status === 'marked') {
+                                        document.getElementById('marked').style.display = 'block';
+                                    } else if (response.status === 'already_marked') {
+                                        document.getElementById('already_marked').style.display = 'block';
+                                    } else if (response.status === 'no_image') {
+                                        document.getElementById('status-message').innerText = "No Valid Image Found";
+                                    } else {
+                                        document.getElementById('status-message').innerText = "Error: " + response.message;
+                                    }
+                                },
+                                error: function(xhr, status, error) {
+                                    document.getElementById('status-message').innerText = "An error occurred: " + error;
+                                }
+                            });
+                        }
+                        setInterval(markAttendance, 1000);
+                    </script>
+
+                    {% if mode == 'active' %}
+                    <div class="mode active" id="active-mode">
+                        <div class="active-centered-button">
+                            <span class="active-rounded-button">ACTIVE</span>
+                        </div>
+                    </div>
+                    {% elif mode == 'new_user' %}
+                    <div class="new-user-form active" id="new-user-form">
+                        <div class="container-form">
+                            <div class="message-container">
+                                <p class="message">NEW EMPLOYEE DETECTED!</p>
+                            </div>
+                            <form action="{{ url_for('capture_image') }}" method="POST">
+                                <div class="input-field">
+                                    <label for="employee_name">ENTER YOUR FULL NAME :</label>
+                                    <input type="text" id="employee_name" name="employee_name">
+                                </div>
+                                <button type="submit" class="btn" title="Please Look Into The Camera And Smile!!!. Click To Capture Your Image">CAPTURE IMAGE</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% elif mode == 'marked' %}
+                    <div class="mode" id="marked-mode">
+                        <div class="marked-centered-button">
+                            <i class="fa-solid fa-circle-check fa-sm" style="color: #00ff00;font-size: 8rem;margin-bottom: 80%"></i>
+                            <span class="marked-rounded-button">MARKED</span>
+                        </div>
+                    </div>
+                    {% elif mode == 'already_marked' %}
+                    <div class="mode" id="already-marked-mode">
+                        <div class="already-marked-centered-button">
+                            <span class="already-marked-rounded-button">ALREADY MARKED</span>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Display the current mode -->
+                    <div class="current-mode">
+                        <p>Current Mode: <strong>{{ mode }}</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
